@@ -1,0 +1,8 @@
+prefix=/home/bscv/ros/indigo/catkin_ws/install
+
+Name: rplidar_ros
+Description: Description of rplidar_ros
+Version: 1.5.5
+Cflags: 
+Libs: -L/home/bscv/ros/indigo/catkin_ws/install/lib 
+Requires: 

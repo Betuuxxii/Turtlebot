@@ -1,0 +1,8 @@
+prefix=/home/bscv/ros/indigo/catkin_ws/devel
+
+Name: rbx1_bringup
+Description: Description of rbx1_bringup
+Version: 0.4.0
+Cflags: 
+Libs: -L/home/bscv/ros/indigo/catkin_ws/devel/lib 
+Requires: 

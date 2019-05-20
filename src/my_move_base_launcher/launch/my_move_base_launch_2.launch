@@ -1,0 +1,22 @@
+<launch>
+
+  <include file="$(find turtlebot_le2i)/launch/remap_rplidar_minimal.launch"/>
+  
+  <param name="use_sim_time" value="false" />
+  
+  <!-- EDIT THIS LINE TO REFLECT THE NAME OF YOUR OWN MAP FILE 
+       Can also be overridden on the command line -->
+  <arg name="map" default="$(find my_mapping_launcher)/maps/laser_map.yaml" />
+
+  <!-- Run the map server with the desired map -->
+  <node name="map_server" pkg="map_server" type="map_server" args="$(arg map)"/>
+
+  <!-- Start move_base  -->
+  <include file="$(find my_move_base_launcher)/launch/my_move_base_launch_1.launch" />
+
+  <!-- Fire up AMCL -->
+  <include file="$(find my_amcl_launcher)/launch/my_amcl_launch.launch" />
+
+  <!-- Initialize robot pose -->
+  <include file="$(find get_pose)/launch/initial_pose.launch"/>
+</launch>

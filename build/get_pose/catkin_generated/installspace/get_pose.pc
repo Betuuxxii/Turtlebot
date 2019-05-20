@@ -1,0 +1,8 @@
+prefix=/home/bscv/ros/indigo/catkin_ws/install
+
+Name: get_pose
+Description: Description of get_pose
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/bscv/ros/indigo/catkin_ws/install/lib 
+Requires: 

@@ -1,0 +1,8 @@
+prefix=/home/bscv/ros/indigo/catkin_ws/install
+
+Name: make_plan
+Description: Description of make_plan
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/bscv/ros/indigo/catkin_ws/install/lib 
+Requires: 

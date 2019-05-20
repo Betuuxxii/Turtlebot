@@ -1,0 +1,8 @@
+prefix=/home/bscv/ros/indigo/catkin_ws/devel
+
+Name: get_map_data
+Description: Description of get_map_data
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/bscv/ros/indigo/catkin_ws/devel/lib 
+Requires: 

@@ -1,0 +1,8 @@
+prefix=/home/bscv/ros/indigo/catkin_ws/install
+
+Name: my_move_base_launcher
+Description: Description of my_move_base_launcher
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/bscv/ros/indigo/catkin_ws/install/lib 
+Requires: 

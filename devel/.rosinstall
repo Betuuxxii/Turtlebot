@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/bscv/ros/indigo/catkin_ws/devel/setup.sh

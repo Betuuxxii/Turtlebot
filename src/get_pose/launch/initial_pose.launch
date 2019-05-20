@@ -1,0 +1,3 @@
+<launch>
+    <node pkg="get_pose" type="set_initial_pose.py" name="service_server" output="screen"></node>
+</launch>

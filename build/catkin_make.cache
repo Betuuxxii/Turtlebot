@@ -1,0 +1,2 @@
+beginner_tutorials:get_map_data:get_pose:initialize_particles:joy2twist:make_plan:my_amcl_launcher:my_mapping_launcher:my_move_base_launcher:provide_map:rbx1/rbx1:rbx1/rbx1_apps:rbx1/rbx1_bringup:rbx1/rbx1_description:rbx1/rbx1_dynamixels:rbx1/rbx1_nav:rbx1/rbx1_speech:rbx1/rbx1_vision:rplidar-turtlebot2/rplidar_ros:rplidar-turtlebot2/turtlebot_le2i:send_goals
+-DCATKIN_DEVEL_PREFIX=/home/bscv/ros/indigo/catkin_ws/devel -DCMAKE_INSTALL_PREFIX=/home/bscv/ros/indigo/catkin_ws/install -G Unix Makefiles

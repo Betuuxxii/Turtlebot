@@ -1,0 +1,8 @@
+<launch>
+  <include file="$(find provide_map)/launch/map_provider.launch"/>
+
+  <node pkg="get_map_data"
+        type="call_map_service.py"
+        name="map_requester"
+        output="screen" ></node>
+</launch>
