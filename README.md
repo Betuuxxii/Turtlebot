@@ -242,8 +242,8 @@ In a different shell run the following node:
 $ rosrun send_goals send_goal_client.py
 ```
 ## Video Links
-[Final Demo](https://www.youtube.com/watch?v=BhJ4ITnACqM&t=119s)
-[Obstacle Avoidance](https://www.youtube.com/watch?v=THMFHh7WtnQ)
+1. [Final Demo](https://www.youtube.com/watch?v=BhJ4ITnACqM&t=119s)
+2. [Obstacle Avoidance](https://www.youtube.com/watch?v=THMFHh7WtnQ)
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
