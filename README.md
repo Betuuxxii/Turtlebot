@@ -1,10 +1,47 @@
 # Mobile Robot Navigation (Turtlebot2 )
 
-Foobar is a Python library for dealing with word pluralization.
 
+
+- [Mobile Robot Navigation (Turtlebot2 )](#mobile-robot-navigation-turtlebot2)
+  - [Abstract:](#abstract)
+  - [Objective](#objective)
+  - [Used Packages](#used-packages)
+  - [Methodology](#methodology)
+  - [Implementation](#implementation)
+    - [Mapping](#mapping)
+      - [Transforms](#transforms)
+      - [Visualize Mapping in RVIZ](#visualize-mapping-in-rviz)
+    - [Localization](#localization)
+      - [Visualize Localization](#visualize-localization)
+    - [Path Planning](#path-planning)
+      - [The Global Planner](#the-global-planner)
+      - [The Local Planner](#the-local-planner)
+      - [Recovery Behaviors](#recovery-behaviors)
+  - [Conclusion](#conclusion)
+  - [Installation](#installation)
+  - [Usage](#usage)
+  - [Video Links](#video-links)
+  - [Contributing](#contributing)
+  - [License](#license)
+## Abstract:
+Robotics is reshaping the landscape of industries, the military,
+and even our homes. From disarming bombs to cleaning our homes. Navigation
+is a crucial role in helping robots carry out their task. Our aim in this project is
+to study the turtlebot robot and perform navigation tasks using ROS ( Robot
+Operating System).
+
+## Objective
+Our goal is to design a robot navigation system that allows the turtlebot to move from place A to place B while avoiding obstacles, without human assistance through the help of 
+the Ros navigation stack.
+
+## Used Packages
+1. [ROS by Example Volume 1] (https://github.com/pirobot/rbx1)
+2. [rplidar-turtlebot2] (https://github.com/roboticslab-fr/rplidar-turtlebot2)
+
+**Note:** All these packages are included in the this catkin workspace. For the current version of this project there is  no need to download them from their original source.
 
 ## Methodology
-To achieve our goal  we will create static map  of the environments, localize the robot in the environment, make the robots perform path planning, visualize data of the 
+To achieve our goal  we will create static map  of the environment, localize the robot in the environment, make the robots perform path planning, visualize data of the 
 different Navigation processes and debug errors using Rviz, configure the different Navigation nodes. Building the map is done by using the \textit{the SLAM gmapping package} which also provides different packages for saving the map to our local machine and also providing the map to other nodes. 
 
 ## Implementation
@@ -25,7 +62,7 @@ rosrun map_server map_server -f laser_map
 ![Map, Laser based Map](./src/my_mapping_launcher/maps/laser.png)
 
 This command will get the map data from the map topic, and write it out into
-2 files, laser map.pgm and laser map.yaml. A PGM (Portable Gray Ma) file. A PGM is a file that represents a grayscale image. Whiter pixels represents free, blacker pixels are occupied and pixels in between are unknown. The map server package also provides the map server node this node reads a map from a file then provides it to other nodes like the move node for performing path planning or the amcl for localization. We can have access to the map by either calling the service static map or by listening to the /map latched topic. When a topic is latched, it means that the last message published to that topic will be saved. That means, any node that listens to this topic in the future will get this last message, even if nobody is publishing to this topic anymore.
+2 files, laser map.pgm and laser map.yaml. A PGM (Portable Gray Map) file. A PGM is a file that represents a grayscale image. Whiter pixels represents free, blacker pixels are occupied and pixels in between are unknown. The map server package also provides the map server node this node reads a map from a file then provides it to other nodes like the move node for performing path planning or the amcl for localization. We can have access to the map by either calling the service static map or by listening to the /map latched topic. When a topic is latched, it means that the last message published to that topic will be saved. That means, any node that listens to this topic in the future will get this last message, even if nobody is publishing to this topic anymore.
 
 #### Transforms
 In order to be able to use the laser readings, we need to set a transform between the laser and the robot base, and add it to the transform tree. This basically tell
@@ -43,7 +80,7 @@ For Mapping, we basically need to use three displays of RViz:
 ### Localization
 When a robot moves around a map, it needs to know which is its POSITION
 within the map, and which is its ORIENTATION this is known as the pose of
-the robot. Determining the pose using the robots sensors is known as **Robot Localization**. In this section we will present the way we configured the turtlebot for a better localization. The AMCL (Adaptive Monte Carlo Localization) package provides the amcl node, which uses the MCL system in order to track the localization of a robot moving in a 2D space. the generates many random
+the robot. Determining the pose using the robots sensors is known as **Robot Localization**. In this section we will present the way we configured the turtlebot for a better localization. The AMCL (Adaptive Monte Carlo Localization) package provides the amcl node, which uses the MCL system in order to track the localization of a robot moving in a 2D space, which generates many random
 guesses as to where it is going to move next. These guesses are known as particles. Each particle contains a full description of a possible future pose. When
 the robot observes the environment it’s in (via sensor readings), it discards particles that don’t match with these readings, and generates more particles close
 to those that look more probable. The amcl node reads the data published into the laser topic (/scan), the map topic(/map), and the transform topic (/tf), and published the estimated pose where the robot was in to the /amcl pose and the
@@ -66,7 +103,7 @@ requirements:
 3. Provide Good Laser-map Data
 
 As discussed previously transform plays an important role in navigation.
-the amcl node transforms incoming laser scans to the odemetry frame. So there
+the amcl node transforms incoming laser scans to the odometry frame. So there
 must be a path through the transform tree from the frame in which the laser
 scans are published to the odometry frame
 
@@ -76,8 +113,8 @@ the positions of the particles, and is able to make use of a service called stat
 in order to get the map data it needs. The textbfglobal localization service initiate globlocalization wherein all particles are dispersed randomly throughout
 free space in the map. We will make use of this feature to predict the localization of the robot in one of our packages. To have a more acurate localization
 we used RVIZ to estimate a pose of the robot then we used the
-get pose topic to get the pose of the robot then hardcoded that pose so that.
-Anytime the navigation process start the robot is well localized.
+get pose topic to get the pose of the robot then hardcoded that pose so that
+anytime the navigation process start the robot is well localized.
 
 #### Visualize Localization
 Localization can be visualized in RVIZ by adding the following displays:
@@ -89,7 +126,7 @@ Localization can be visualized in RVIZ by adding the following displays:
 
 ### Path Planning
 In this section we will look at what it takes to move the robot from point
-A to point B. As it custom to not reinvent the wheel we will use an exiting
+A to point B. As it is acustom to not reinvent the wheel we will use an exiting
 package to implement this task. The package that allows this behavior is called
 The Move base package, it is part of the Ros navigation stack just as all
 the packages discuss thus far. The package has a node called move base which
@@ -111,7 +148,7 @@ the found created path to the /plan topic.
 
 The planning of a trajectory by the global planner is done according to a
 map called the The Global Costmap. A costmap is basically a map that
-repreents places that are safe for the robot to be in a grid of cells. Usually
+represents places that are safe for the robot to be in a grid of cells. Usually
 a costmap has binary valies, representing either the space or places where the
 robot would be in collision. But to be more specific each cell in a costmap has an integer value in the range (0, 255). Amoung these values there are special
 values frequently used in this range.
@@ -147,12 +184,12 @@ the global plan). So given a plan to follow and a map, the local planner will
 provide velocity commands in order to move the robot. the local planner can
 recompute the robot’s path on the fly in order to keep the robot from striking
 objects, yet still allowing it to reach its destination. Different types of local
-planners also exist to choose from depending on the setup (The robot of use,
-the environment) and the type of performance wanted. This project makes
+planners also exist to choose from depending on the setup like the robot used,
+the environment etc., and the type of performance wanted. This project makes
 use of the base local planner. It provides implementation of the trajectory
 rollout and Dynamic Window Approach (DWA) algorithms in order to calculate
 and execute a plan. Let summarize the basic idea of how this algorithms works:
-1. Discretely sample from the robots control space
+1. Discretely sample the robots control space
 2. For each sampled velocity, perform forward simulations from the robot’s current state to predict what would happen if the sampled velocity was applied.
 3. Evaluate each trajectory resulting from the forward simulation.
 4. Discard illegal trajectories.
@@ -161,7 +198,7 @@ and execute a plan. Let summarize the basic idea of how this algorithms works:
 
 The local planner also has its own parameters. These parameters will be different depending on the local planner you use. These parameters are set in
 a YAML file they include Robot Configuration Parameter, Goal Tolerance parameters, Forward simulation parameters The list of all these
-parameters can be found on the move base documentation site. We previously spoke about the global costmap as being used by the global planner in the same way, the local planner also makes use of a costmap called the local costmap, in order to calculate local plans. It is important to Note that the obstacle layer uses different plugins for the local costmap and the global costmap. For the local costmap, it uses the costmap 2d::ObstacleLayer, and for the global costmap it uses the costmap 2d::VoxelLayer. The obstacle layer is in charge of the marking and clearing operations. There is one last parameter files related to both the global and local costmaps that we ded not discuss, that
+parameters can be found on the move base documentation site. We previously spoke about the global costmap as being used by the global planner in the same way, the local planner also makes use of a costmap called the local costmap, in order to calculate local plans. It is important to Note that the obstacle layer uses different plugins for the local costmap and the global costmap. For the local costmap, it uses the costmap 2d::ObstacleLayer, and for the global costmap it uses the costmap 2d::VoxelLayer. The obstacle layer is in charge of the marking and clearing operations. There is one last parameter files related to both the global and local costmaps that we did not discuss, that
 is the common costmap parameter file. It configuration is used for both the previously mentioned costmaps.
 
 #### Recovery Behaviors
@@ -172,7 +209,7 @@ by the Ros navigation stack. The Rotate Recovery behavior attempts to clear out 
 recovery, this behavior simply clears out space by clearing obstacles outside of a specified region from the robot’s map. Basically, the local costmap reverts to
 the same state as the global costmap.
 
-#### Conclusion
+## Conclusion
 In order to navigate around a map autonomously, a robot needs to be able to
 localize itself into the map. And this is precisely the functionality that the
 amcl node (of the amcl package) provides us. In order to achieve this, the amcl
@@ -184,23 +221,29 @@ the odometry of the robot, and also from the map of the environment, and
 outputs an estimated pose of the robot. The more the robot moves around the
 environment, the more data the localization system will get, so the more precise
 the estimated pose it returns will be.
+
 ## Installation
-
-Use the package manager [pip](https://pip.pypa.io/en/stable/) to install foobar.
-
+1. Clone the project to your local machine
+2. Copy the content of the src directory into you catkin_ws
+3. move to your catkin_ws directory
+4. type the command:
 ```bash
-pip install foobar
+$ catkin_make
+$ source catkin_ws/devel/setup.bash
+$ rospack profile
 ```
-
 ## Usage
-
-```python
-import foobar
-
-foobar.pluralize('word') # returns 'words'
-foobar.pluralize('goose') # returns 'geese'
-foobar.singularize('phenomena') # returns 'phenomenon'
+Launch the demo by :
+```bash
+$ roslaunch my_move_base_launcher2.launch
 ```
+In a different shell run the following node:
+``` bash
+$ rosrun send_goals send_goal_client.py
+```
+## Video Links
+[Final Demo](https://www.youtube.com/watch?v=BhJ4ITnACqM&t=119s)
+[Obstacle Avoidance](https://www.youtube.com/watch?v=THMFHh7WtnQ)
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
