@@ -21,6 +21,7 @@
   - [Installation](#installation)
   - [Usage](#usage)
   - [Video Links](#video-links)
+  - [Good References](#good-references)
   - [Contributing](#contributing)
   - [License](#license)
 ## Abstract:
@@ -244,6 +245,11 @@ $ rosrun send_goals send_goal_client.py
 ## Video Links
 1. [Final Demo](https://www.youtube.com/watch?v=BhJ4ITnACqM&t=119s)
 2. [Obstacle Avoidance](https://www.youtube.com/watch?v=THMFHh7WtnQ)
+
+## Good References
+ 1. http://wiki.ros.org/navigation
+ 2. http://wiki.ros.org/amcl
+ 3. http://wiki.ros.org/move\_base\\
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
